@@ -4,7 +4,7 @@ This repository contains the shell application for this portion of the UtiliSour
 
 1. Retrieve an array of data from an API.
 2. Display it in a table.
-3. Click on a table row to display a detail of the row.
+3. Click on a table row to display a detail of the row. (onClick)
 
 The test is intentionally designed with a lot of latitude for personal choices. You are being given only broad requirements so that you can show your coding style and design aesthetic.
 
@@ -14,9 +14,9 @@ There is also an analysis exercise at the bottom that forms a second part to the
 
 Clone this repository to a local folder. The application was created using create-react-app. Run **npm install** per a typical React project initialization.
 
-Open *App.js* and find the function *authHdr()* near the bottom. Replace *your_access_token_here* with the token you were sent in the coding test email. Do not add any spaces.
+Open _App.js_ and find the function _authHdr()_ near the bottom. Replace _your_access_token_here_ with the token you were sent in the coding test email. Do not add any spaces.
 
-Scroll down to the function *apiBaseUrl()* and replace *api_base_url_goes_here* with the API url included in the email. Do not add a trailing slash "/".
+Scroll down to the function _apiBaseUrl()_ and replace _api_base_url_goes_here_ with the API url included in the email. Do not add a trailing slash "/".
 
 Start the app with the usual **npm start** command.
 
@@ -24,9 +24,9 @@ WARNING: You need a recent version of Node to run the web app. If you receive th
 
 `ERROR in [eslint] Failed to load plugin 'flowtype' declared in 'package.json » eslint-config-react-app': Cannot find module 'eslint/use-at-your-own-risk'`
 
-it means you are probably on v12 of Node and need to upgrade it to v16. Alternately, you may be able to fix the error by deleting the eslintConfig element from package.json. 
+it means you are probably on v12 of Node and need to upgrade it to v16. Alternately, you may be able to fix the error by deleting the eslintConfig element from package.json.
 
-Assuming no such errors, your browser should open to localhost:3000 and display a black screen with some welcoming text and two buttons.  Display dev tools so you can see console log output.
+Assuming no such errors, your browser should open to localhost:3000 and display a black screen with some welcoming text and two buttons. Display dev tools so you can see console log output.
 
 Click the button **Can Get Links**. In 5 to 10 seconds (up to a minute if the remote API hasn't been invoked for a couple hours), you should see a console output like this,
 
@@ -40,7 +40,7 @@ Click the button **Can Get Link Detail**. You should quickly see the following c
 
 If you received the two success messages in your console log, then you have confirmed you can reach the coding test API and are ready to continue.
 
-If you did not receive the success messages, get in touch ASAP so that we can get you going. Resolving API access is not part of the coding test. The two functions, *apiGetChannelLinks()* and *apiGetLinkDetail()* are intended to give you access to the API and you should use them for data retrieval.
+If you did not receive the success messages, get in touch ASAP so that we can get you going. Resolving API access is not part of the coding test. The two functions, _apiGetChannelLinks()_ and _apiGetLinkDetail()_ are intended to give you access to the API and you should use them for data retrieval.
 
 ## Coding Test Requirements
 
@@ -58,13 +58,13 @@ Include any packages, snippets, libraries, etc. that you want. Meet the function
 
 Render the links data in a table. The table should have column headers. Include the following columns in this order (left to right): Published, Title, Source, SourceType, URL.
 
-The data property *Publishedts* is a Unix Epoch UTC timestamp in **seconds**. Convert it to browser (user's) local time and display as a user-friendly date-time string.
+The data property _Publishedts_ is a Unix Epoch UTC timestamp in **seconds**. Convert it to browser (user's) local time and display as a user-friendly date-time string.
 
 Sort the data by Published timestamp, oldest at the top of the table, to newest at the bottom. Do not assume the API will return data pre-sorted.
 
 Clicking on the URL should open the video in a separate browser tab (or window).
 
-NOTE: The *ID* property is an internal identifier and can be relied on to be unique per link item.
+NOTE: The _ID_ property is an internal identifier and can be relied on to be unique per link item.
 
 ### Detail Display
 
@@ -77,9 +77,9 @@ Display the following fields in the detail screen. The order and layout is your 
 1. Title
 2. SourceTimestamp (display in user-friendly date-time same as Publishedts)
 3. Full Description
-4. Thumbnail Image  --obtained via ThumbURL
+4. Thumbnail Image --obtained via ThumbURL
 5. Source
-6. SourceChannelName  --support clicking this to open SourceChannelUrl in new tab
+6. SourceChannelName --support clicking this to open SourceChannelUrl in new tab
 
 Support clicking a control or element in the detail to open the video in a new tab. Video url is contained in the URL link property.
 
@@ -87,18 +87,18 @@ Some visibility to the rows of the table should remain so that clicking another 
 
 Include a way to close an open detail and return to full table visibility with no details open.
 
-
 ### Deliverable
 
 Return a copy of this code base with your changes in it. It should support **npm install** and **npm start** in order to run it.
 
 ## Request Throttling Analysis
 
-The API enforces a request throttling limit that prohibits additional requests after a limit value is reached. Throttling is done per-minute and resets at the beginning of the next minute. "Minutes" are wall-clock minutes, not elapsed minutes. Meaning, if you are in minute 12:01 and hit your request limit, the counter resets at 12:02. 
+The API enforces a request throttling limit that prohibits additional requests after a limit value is reached. Throttling is done per-minute and resets at the beginning of the next minute. "Minutes" are wall-clock minutes, not elapsed minutes. Meaning, if you are in minute 12:01 and hit your request limit, the counter resets at 12:02.
 
-Requests are cumulative across all API calls. Calls to *apiGetChannelLinks()* and *apiGetLinkDetail()* both add to the current minute's request total.
+Requests are cumulative across all API calls. Calls to _apiGetChannelLinks()_ and _apiGetLinkDetail()_ both add to the current minute's request total.
 
 ### Determine Request Limit
+
 It's common to have to call into a 3rd party API that is not under your control. Often these APIs are poorly documented and can demonstrate unexpected behavior. This section of the coding test simulates the steps you might take if you encounter throttling from an API and need to figure out what the throttling limit is.
 
 You must do this analysis programmatically in code. You can use any approach you like (click a button to run code, enter a specific URL route, run a one-time utility program, run a script, etc.), as long as it is done automatically as opposed to having a user manually initiate each request. For one thing, what if the limit is 1,000 requests? A person will not be able to trigger that many requests.
@@ -109,4 +109,4 @@ The API indicates request limit reached by returning HTTP Status Code 429,
 
 Your solution should include the value of the limit and the code you used to determine it.
 
-HINT: The limit is less than 100 requests per minute. 
+HINT: The limit is less than 100 requests per minute.
