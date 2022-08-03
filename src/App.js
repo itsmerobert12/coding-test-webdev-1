@@ -17,7 +17,7 @@ function App() {
   }, [])
 
   if (!data) {
-    return <div>Loading information...</div>
+    return <div>Loading it for you...</div>
   }
 
   return (
@@ -32,7 +32,7 @@ function App() {
         </p>
         <button onClick={getLinks}>Can Get Links</button>
         <button onClick={getLinkDetail}>Can Get Link Detail</button>
-        <table className='video-table'>
+        <table className='table-videos'>
           <tr>
             <th>Published</th>
             <th>Title</th>
@@ -40,18 +40,26 @@ function App() {
             <th>SourceType</th>
             <th>URL</th>
           </tr>
-          {console.log(data.Links[30])}
-          {data.Links.map((data) => {
-            return (
-              <tr>
-                <td>{<Moment unix>{data.Publishedts}</Moment>}</td>
-                <td>{data.Title}</td>
-                <td>{data.Source}</td>
-                <td>{data.SourceType}</td>
-                <td><a href={data.URL} target="_blank" rel="noreferrer noopener">{data.URL}</a></td>
-              </tr>
-            )
-          })}
+          {data.Links
+            .sort((a, b) =>
+              a.Publishedts > b.Publishedts ? 1 : -1
+            ).map((data) => {
+              return (
+                <tr className="table-rows" onClick={() => apiGetLinkDetail(data.ID)}>
+                  <td className="table-info">
+                    {<Moment unix>{data.Publishedts}</Moment>}
+                  </td>
+                  <td className="table-data">{data.Title}</td>
+                  <td className="table-data">{data.Source}</td>
+                  <td className="table-data">{data.SourceType}</td>
+                  <td className="table-data">
+                    <a href={data.URL} target="_blank" rel="noreferrer noopener">
+                      {data.URL}
+                    </a>
+                  </td>
+                </tr>
+              );
+            })}
         </table>
       </header>
     </div>

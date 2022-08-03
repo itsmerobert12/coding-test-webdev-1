@@ -39,7 +39,24 @@
   }
 }
 
-.video-table th {
-  /* text-align: center; */
-  color: #61dafb;
+.table-videos th {
+  text-align: center;
+  color: #00ff7f;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px;
+  align-self: auto;
 } 
+
+
+.table-rows {
+  height: 2rem;
+  background-color: orangered;
+}
+
+.table-info {
+  height: 80px;
+  justify-content: space-between;
+  padding: 18px;
+}
