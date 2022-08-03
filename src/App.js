@@ -21,7 +21,7 @@ function App() {
     return <div className="loader">Loading it for you...</div>;
   }
 
-  //Limit request tester
+  //Limit request tester and i think the limit is 
   function limitTester() {
     setTimeout(() => {
       for (let i = 0; i < 10; i++) {
@@ -48,13 +48,15 @@ function App() {
         <button onClick={getLinks}>Can Get Links</button>
         <button onClick={getLinkDetail}>Can Get Link Detail</button>
         <table className="table-videos">
-          <tr>
-            <th>Published</th>
-            <th>Title</th>
-            <th>Source</th>
-            <th>SourceType</th>
-            <th>URL</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Published</th>
+              <th>Title</th>
+              <th>Source</th>
+              <th>SourceType</th>
+              <th>URL</th>
+            </tr>
+          </thead>
           <Details
             data={data}
             authHdr={authHdr}
