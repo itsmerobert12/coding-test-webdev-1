@@ -1,4 +1,4 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 
 .App {
   text-align: center;
@@ -47,16 +47,28 @@
   text-transform: uppercase;
   padding: 10px;
   align-self: auto;
-} 
-
+}
 
 .table-rows {
   height: 2rem;
-  background-color: orangered;
+  background-color: #282c34;
+  border: 5px solid #00ff7f;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: medium;
+  
 }
 
 .table-info {
   height: 80px;
   justify-content: space-between;
   padding: 18px;
+}
+
+.table-data {
+  overflow-x: auto;
+  height: 2rem;
+  background-color: #282c34;
+  padding: 10px;
+  border: 1px solid #00ff7f;
 }

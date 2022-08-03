@@ -53,7 +53,7 @@ function App() {
                   <td className="table-data">{data.Source}</td>
                   <td className="table-data">{data.SourceType}</td>
                   <td className="table-data">
-                    <a href={data.URL} target="_blank" rel="noreferrer noopener">
+                    <a href={data.URL} target="_blank" rel="noreferrer">
                       {data.URL}
                     </a>
                   </td>
@@ -102,17 +102,15 @@ async function apiGetChannelLinks() {
 }
 
 async function apiGetLinkDetail(linkId) {
-  return (
-    axios.get(`${apiBaseUrl()}/link/${linkId}`, authHdr())
-      .then(function (response) {
-        console.log(response.data)
-        return response.data;
-      })
-      .catch(function (error) {
-        console.error("-- " + error);
-        return null;
-      })
-  );
+  return axios
+    .get(`${apiBaseUrl()}/link/${linkId}`, authHdr())
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      console.error("-- " + error);
+      return null;
+    });
 }
 function authHdr() {
   const key = "62e0796e40735aa4ad11260e";  // example: key = "373cn7cd89dddkd"; 
