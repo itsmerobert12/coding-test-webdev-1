@@ -1,25 +1,25 @@
-import axios from 'axios';
-import './App.css';
-import VideoInfo from './Components/Table.js';
-import { useState, useEffect } from 'react';
+import axios from "axios";
+import "./App.css";
+import { useEffect, useState } from 'react';
+import Moment from 'react-moment';
+
 
 function App() {
-  const [data, setData] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState()
 
   useEffect(() => {
-    axios.get('https://utilicodingtest2.azurewebsites.net/api/links', authHdr())
+    axios.get(`${apiBaseUrl()}/links`, authHdr())
       .then(function (response) {
-        setData(response.data);
-        setLoading(false);
-      }
-      )
-      .catch(function (error) { console.log(error); });
-  }, []);
+        setData(response.data)
+      })
+      .catch(err => console.err)
 
-  if (isLoading) {
-    return <div className="App">Loading...</div>;
+  }, [])
+
+  if (!data) {
+    return <div>Loading information...</div>
   }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -32,31 +32,42 @@ function App() {
         </p>
         <button onClick={getLinks}>Can Get Links</button>
         <button onClick={getLinkDetail}>Can Get Link Detail</button>
+        <table className='video-table'>
+          <tr>
+            <th>Published</th>
+            <th>Title</th>
+            <th>Source</th>
+            <th>SourceType</th>
+            <th>URL</th>
+          </tr>
+          {console.log(data.Links[30])}
+          {data.Links.map((data) => {
+            return (
+              <tr>
+                <td>{<Moment unix>{data.Publishedts}</Moment>}</td>
+                <td>{data.Title}</td>
+                <td>{data.Source}</td>
+                <td>{data.SourceType}</td>
+                <td><a href={data.URL} target="_blank" rel="noreferrer noopener">{data.URL}</a></td>
+              </tr>
+            )
+          })}
+        </table>
       </header>
-      <VideoInfo data={data} />
     </div>
   );
 }
-
-
-
 function getLinks() {
   console.log("getLinks called");
   // Call will typically take 5 to 10 seconds to complete. Allow up to a 
   // minute to start up if first call in a while.
-
   apiGetChannelLinks().then((response) => {
     console.log(`Success. Retrieved ${response.Channels.length} channel and ${response.Links.length} video links`);
-    //console.log(response)
-    return response;
   })
     .catch((err) => {
       console.error(err);
     })
 }
-
-
-
 function getLinkDetail() {
   console.log("getLinkDetail called");
   // Hardcoded video link id, known to exist, for validation purposes only
@@ -68,7 +79,6 @@ function getLinkDetail() {
       console.error(err);
     })
 }
-
 async function apiGetChannelLinks() {
   return (
     axios.get(`${apiBaseUrl()}/links`, authHdr())
@@ -79,6 +89,7 @@ async function apiGetChannelLinks() {
         console.error("-- " + error);
         return null;
       })
+
   );
 }
 
@@ -86,6 +97,7 @@ async function apiGetLinkDetail(linkId) {
   return (
     axios.get(`${apiBaseUrl()}/link/${linkId}`, authHdr())
       .then(function (response) {
+        console.log(response.data)
         return response.data;
       })
       .catch(function (error) {
@@ -94,9 +106,8 @@ async function apiGetLinkDetail(linkId) {
       })
   );
 }
-
 function authHdr() {
-  const key = "62e0796e40735aa4ad11260e";  // example: key = "373cn7cd89dddkd";
+  const key = "62e0796e40735aa4ad11260e";  // example: key = "373cn7cd89dddkd"; 
   const config = {
     headers: {
       "Authorization": `Key ${key}`,
@@ -104,9 +115,7 @@ function authHdr() {
   };
   return config;
 }
-
 function apiBaseUrl() {
-  return "https://utilicodingtest2.azurewebsites.net/api"  // example: https://something.com/api   --Do not include a trailing slash "/"
+  return "https://utilicodingtest2.azurewebsites.net/api";  // example: https://something.com/api   --Do not include a trailing slash "/"
 }
-
 export default App;
