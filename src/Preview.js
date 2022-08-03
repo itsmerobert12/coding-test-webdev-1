@@ -1,21 +1,27 @@
-import ".App.css";
 import Moment from "react-moment";
-
 
 //write function that create modal preview
 
-function Preview({ closePreview, data }) {
+function Preview({ modalState, toggleModalState, selected }) {
     return (
-        <div className="preview-background">
-            Details
-            <div className="preview-container"></div>
-            <button onClick={() => closePreview()}>Close</button>
-            <div className="preview-title"><h1>{data.Title}</h1></div>
-            <div className="preview-body">
-                <p>{<Moment unix>{data.Publishedts}</Moment>}</p>
-                <p>{data.Source}</p>
+        <div className={`previewBackground previewInfo-${modalState}`}>
+            <div className="previewIn">
+                <span>
+                    <button onClick={() => toggleModalState()}>Close</button>
+                </span>
+                <div className="previewText">
+                    <h2>{selected.Title}</h2>
+                    <p className="previewTimestamp">
+                        {<Moment>{selected.SourceTimeStamp}</Moment>}
+                        {selected.Source}
+                    </p>
+                    <a href={selected.SourceChannelUrl} target="_blank" rel="noreferrer">
+                        <span>{selected.SourceChannelName}</span>
+                    </a>
+                    <p className="modal">{selected.FullDescription}</p>
+                    <img src={selected.ThumbURL} alt="Video-img" />
+                </div>
             </div>
-            <div className="preview-footer"></div>
         </div>
     );
 }
