@@ -6,6 +6,8 @@ import Details from "./Details";
 function App() {
   const [data, setData] = useState();
 
+  const [counter, setCounter] = useState(0);
+
   useEffect(() => {
     axios
       .get(`${apiBaseUrl()}/links`, authHdr())
@@ -19,6 +21,21 @@ function App() {
     return <div className="loader">Loading it for you...</div>;
   }
 
+  //Limit request tester
+  function limitTester() {
+    setTimeout(() => {
+      for (let i = 0; i < 10; i++) {
+        apiGetChannelLinks();
+        axios.get(`${apiBaseUrl()}/links`, authHdr()).then(function (response) {
+          setData(response.data);
+        });
+        console.log(counter + 1)
+        setCounter(counter + 1);
+      }
+      console.log(`count ${counter}`);
+    }, 1000);
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -27,6 +44,7 @@ function App() {
         <p style={{ margin: "20px 40px", fontSize: "smaller" }}>
           Click each button and check console log to verify api can be reached.
         </p>
+        {<button onClick={limitTester}>Request Limit - in console</button>}
         <button onClick={getLinks}>Can Get Links</button>
         <button onClick={getLinkDetail}>Can Get Link Detail</button>
         <table className="table-videos">

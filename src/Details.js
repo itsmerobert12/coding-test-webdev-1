@@ -42,11 +42,10 @@ function Details({ data, apiBaseUrl, authHdr }) {
             <tr
                 className="table-row"
                 key={data.ID}
-                onClick={() => handleClick(data.ID)}
-            >
+                onClick={() => handleClick(data.ID)}>
                 <td className="table-data" id="time">
                     {" "}
-                    {<Moment unix> {data.Publishedts} </Moment>}{" "}
+                    {<Moment unix>{data.Publishedts}</Moment>}{" "}
                 </td>{" "}
                 <td className="table-data"> {data.Title} </td>{" "}
                 <td className="table-data"> {data.Source} </td>{" "}

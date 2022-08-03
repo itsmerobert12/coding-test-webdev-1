@@ -123,6 +123,19 @@
   border: 0;
   color: white;
 }
+/*loader with text*/
+.loader {
+  border:#00ff7f solid 2px;
+  border-radius: 50%;
+  border-top: #00ff7f solid 6px;
+  border-right: #00ff7f solid 6px;
+  animation: spin 1s linear infinite;
+  width: 50px;
+  height: 50px;
+  margin: auto;
+  margin-top: 10px;
+}
+
 
 a {
   text-decoration: none;
