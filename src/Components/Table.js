@@ -1,4 +1,4 @@
-import { Table } from 'antd';
+import Moment from 'react-moment';
 
 function VideoInfo(props) {
     //return table with data from props
@@ -19,12 +19,9 @@ function VideoInfo(props) {
 
                 {
                     info.map(stuff => {
-                        //convert Publishedts date from UNIX timestamp to readable date and time
-                        var date = new Date(stuff.Publishedts * 1000);
-                        var dateString = date.toLocaleString();
                         return (
                             <tr key={stuff.ID}>
-                                <td>{dateString}</td>
+                                <td><Moment unix>{stuff.Publishedts}</Moment></td>
                                 <td>{stuff.Title}</td>
                                 <td>{stuff.Source}</td>
                                 <td>{stuff.SourceType}</td>
