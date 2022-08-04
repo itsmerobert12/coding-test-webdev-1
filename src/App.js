@@ -24,15 +24,19 @@ function App() {
   //Limit request tester and i think the limit is 30
   function limitTester() {
     setTimeout(() => {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 100; i++) {
 
         apiGetChannelLinks();
-        axios.get(`${apiBaseUrl()}/links`, authHdr()).then(function (response) {
-          if (response.statusCode === 429) {
-            console.log("Too many requests");
-            setData(response.data);
-          }
-        });
+        axios
+          .get(`${apiBaseUrl()}/links`, authHdr())
+          .then(function (response) {
+
+            if (response.statusCode === 429) {
+              console.log("Too many requests");
+
+            }
+
+          });
         console.log(counter + 1)
         setCounter(counter + 1);
       }
@@ -111,7 +115,7 @@ async function apiGetChannelLinks() {
       return null;
     });
 }
-
+//linkId is main perameter, then returns 
 async function apiGetLinkDetail(linkId) {
   return axios
     .get(`${apiBaseUrl()}/link/${linkId}`, authHdr())
