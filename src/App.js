@@ -21,13 +21,17 @@ function App() {
     return <div className="loader">Loading it for you...</div>;
   }
 
-  //Limit request tester and i think the limit is 
+  //Limit request tester and i think the limit is 30
   function limitTester() {
     setTimeout(() => {
       for (let i = 0; i < 10; i++) {
+
         apiGetChannelLinks();
         axios.get(`${apiBaseUrl()}/links`, authHdr()).then(function (response) {
-          setData(response.data);
+          if (response.statusCode === 429) {
+            console.log("Too many requests");
+            setData(response.data);
+          }
         });
         console.log(counter + 1)
         setCounter(counter + 1);
